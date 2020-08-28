@@ -162,5 +162,8 @@
     - border : boolean : border of calendar
     - label_position : boolean|string : true, false | 'top', 'right', 'left', 'bottom'
 
+  - output : $emit
+    - calendar : object : infomation of showed calendar : { year , month , last_date , first_week }
+    - days : array <number> : checked days
 
 ## Advanced usage

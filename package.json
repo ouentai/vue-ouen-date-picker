@@ -1,0 +1,29 @@
+{
+  "name": "vue-ouen-date-picker",
+  "version": "1.0.0",
+  "description": "simple component for vue to get date",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "vue": "^2.6.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ouentai/vue-ouen-date-picker.git"
+  },
+  "keywords": [
+    "vue",
+    "component",
+    "calendar",
+    "date",
+    "picker"
+  ],
+  "author": "ouentai",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ouentai/vue-ouen-date-picker/issues"
+  },
+  "homepage": "https://github.com/ouentai/vue-ouen-date-picker#readme"
+}

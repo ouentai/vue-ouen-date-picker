@@ -39,6 +39,7 @@
       :checked='checked'
       checked-color='red'
       class='wid'
+      :week-labels='weekLabels'
       @click:day='passDay'
       @info:calendar='passInfo'
       />
@@ -65,6 +66,15 @@ export default {
       days : [],
       calendar : null ,
       dangerous : true , // add_month,add_weekで想定範囲外の値を選択できるようにする:false->safemode
+      weekLabels : [
+        {value:'Sun',color:'green'},
+        {value:'Mon',color:'rgba(0,0,0,.5)'},
+        {value:'Tue',color:''},
+        {value:'Wed',color:''},
+        {value:'Thu',color:''},
+        {value:'Fri',color:''},
+        {value:'Sat',color:'yellow'},
+      ],
     };
   },
   computed: {},

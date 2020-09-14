@@ -5,6 +5,8 @@
     - ym : number : YYYYMM型 190001-209912: year monthより優先 : 月が範囲を越えると自動で年で調整する Dateの扱い
     - year : number : YYYY型
     - month : number : 1-12
+    - week-labels : array <labels> : array.length must be 7 : 曜日の色とか
+      - labels : object : { value : string , color : string }
     - start-week : number : 0-6 : 0:sun, 1:mon ...
     - disabled : boolean : clickイベントを無効にする
     - checked-color : string : cssで使える値 : clickedで渡されたものの中にあったときの背景色
@@ -21,29 +23,17 @@ export default {
     border : Boolean , // カレンダーの枠線の有無
     ym : Number ,
     year: {
-      type: Number,
+      type: Number ,
       default: 2020,
     },
     month: {
-      type: Number,
-      default: 9,
+      type: Number ,
+      default: 9 ,
       validator: val => val <=12 && val >=1,
     },
-    startWeek: { // カレンダーの左端の曜日
-      type: Number,
-      default: 0,
-      validator: val => val <=6 && val >=0,
-    },
-    disabled : Boolean , // click無効
-    checkedColor : String , // checkされたセルの背景色
-    checked: { // defaultでチェック済みにする日付の配列
-      type: Array,
-      default: () => [],
-    },
-  },
-  data () {
-    return {
-      weekArr : [
+    weekLabels: {
+      type: Array ,
+      default: () => [
         { value : '日' , color : 'red'  },
         { value : '月' , color : null   },
         { value : '火' , color : null   },
@@ -51,7 +41,23 @@ export default {
         { value : '木' , color : null   },
         { value : '金' , color : null   },
         { value : '土' , color : 'blue' },
-      ] ,
+      ],
+      validator: arr => arr.length === 7 ,
+    },
+    startWeek: { // カレンダーの左端の曜日
+      type: Number ,
+      default: 0 ,
+      validator: val => val <=6 && val >=0,
+    },
+    disabled : Boolean , // click無効
+    checkedColor : String , // checkされたセルの背景色
+    checked: { // defaultでチェック済みにする日付の配列
+      type: Array ,
+      default: () => [],
+    },
+  },
+  data () {
+    return {
       firstWeek : null , // 1日の曜日
       lastDay   : null , // 月末日
       weeks     : null , // 当月の週数
@@ -66,8 +72,8 @@ export default {
       return val ;
     },
     shiftWeekArr() {
-      return this.weekArr.slice(this.startWeek)
-                         .concat(this.weekArr.slice(0,this.startWeek));
+      return this.weekLabels.slice(this.startWeek)
+                         .concat(this.weekLabels.slice(0,this.startWeek));
     },
   },
   watch: {

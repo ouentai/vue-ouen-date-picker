@@ -14,7 +14,6 @@
   - output : emit
     - info:calendar : object : 表示されているカレンダーの情報
     - click:day : number : クリックされた日付
-
 -->
 <script>
 export default {

@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import is_same_arr from '@/lib/arr/is_same';
+import is_same_arr from '../lib/is_same';
 
 export default {
   name: 'DatePicker',

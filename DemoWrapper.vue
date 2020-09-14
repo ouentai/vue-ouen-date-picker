@@ -20,34 +20,44 @@
       {{year}}年{{month}}月
     </div>
 
-    <MyCalendar
-      :year='year*1'
-      :month='month'
-      :start_weekday='start_weekday'
-      :checked='checked'
-      label_position
-      @days='days=$event'
-      @calendar='calendar=$event'
-      class='wid'
-      />
-
     <div>
       <div>@calendar:{{calendar}}</div>
       <div>@days:{{days}}</div>
     </div>
+
+    <div>
+      <input type="text" v-model='ym'>
+    </div>
+
+    {{monthInfo.year}}年{{monthInfo.month}}月
+    <BaseCalendar
+      border
+      :ym='ym*1'
+      :year='year*1'
+      :month='month'
+      :start-week='start_weekday'
+      :checked='checked'
+      checked-color='red'
+      class='wid'
+      @click:day='passDay'
+      @info:calendar='passInfo'
+      />
   </div>
 </template>
 
 <script>
-import MyCalendar from './DatePicker.vue';
+import BaseCalendar from './components/BaseCalendar';
+
 export default {
   name: 'Demo',
   components: {
-    MyCalendar ,
+    BaseCalendar ,
   },
   props: {},
   data () {
     return {
+      monthInfo : {} ,
+      ym : 202010 ,
       year : 2020 ,
       month : 4 ,
       start_weekday : 0 ,
@@ -59,6 +69,17 @@ export default {
   },
   computed: {},
   methods: {
+    passInfo(val) {
+      this.monthInfo = val ;
+    },
+    passDay(val) {
+      const index = this.checked.indexOf(val);
+      if (index===-1) {
+        this.checked.push(val);
+      } else {
+        this.checked.splice(index,1);
+      }
+    },
     add_month(val) {
       let m = this.month + val ;
       if (this.dangerous) {

@@ -70,6 +70,7 @@ export default {
   computed: {},
   methods: {
     passInfo(val) {
+      console.log('passInfo',val);
       this.monthInfo = val ;
     },
     passDay(val) {

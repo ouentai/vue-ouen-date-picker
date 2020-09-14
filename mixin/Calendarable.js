@@ -15,8 +15,8 @@
         :disabled='disabled'
         :checked-color='checkedColor'
         :checked='checked'
-        @info:calendar='your method'
-        @click:day='your method'
+        @info:calendar='$emit("info:calendar", $event)'
+        @click:day='$emit("click:day", $event)'
         />
     - see above example, you can customize props and @ event.
 

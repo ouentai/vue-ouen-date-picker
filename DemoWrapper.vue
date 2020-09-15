@@ -1,6 +1,8 @@
 <template>
   <div>
 
+    <h2>DatePicker</h2>
+
     <div>
       <button @click='dangerous=!dangerous'>月・曜日範囲外選択</button>{{dangerous}}
     </div>
@@ -17,55 +19,73 @@
       <button @click='add_month(+1)'>次月</button>
     </div>
     <div>
-      {{year}}年{{month}}月
+      {{calendar1.year}}年{{calendar1.month}}月
     </div>
 
+    <DatePicker
+      border
+      :year='year*1'
+      :month='month'
+      :start-week='start_weekday'
+      :checked.sync='checked'
+      style='border : 1px solid red; border-collapse:collapse'
+      class='wid'
+      @info:calendar='setCalendar($event,1)'
+      />
+
+    <hr>
+
     <div>
-      <div>@calendar:{{calendar}}</div>
-      <div>@days:{{days}}</div>
+      <div>@days:{{checked}}</div>
     </div>
+
+    <hr>
+
+    <h2>BaseCalendar</h2>
 
     <div>
       <input type="text" v-model='ym'>
     </div>
 
-    {{monthInfo.year}}年{{monthInfo.month}}月
+    {{calendar2.year}}年{{calendar2.month}}月
     <BaseCalendar
       border
       :ym='ym*1'
-      :year='year*1'
-      :month='month'
       :start-week='start_weekday'
       :checked='checked'
       checked-color='red'
       class='wid'
       :week-labels='weekLabels'
       @click:day='passDay'
-      @info:calendar='passInfo'
+      @info:calendar='setCalendar($event,2)'
       />
   </div>
 </template>
 
 <script>
-import BaseCalendar from './components/BaseCalendar';
+import {
+  BaseCalendar ,
+  DatePicker ,
+} from './index';
 
 export default {
   name: 'Demo',
   components: {
     BaseCalendar ,
+    DatePicker ,
   },
   props: {},
   data () {
     return {
-      monthInfo : {} ,
+      calendar1 : {} ,
+      calendar2 : {} ,
       ym : 202010 ,
       year : 2020 ,
       month : 4 ,
       start_weekday : 0 ,
       checked : [1,4,7,10,31],
       days : [],
-      calendar : null ,
-      dangerous : true , // add_month,add_weekで想定範囲外の値を選択できるようにする:false->safemode
+      dangerous : !true , // add_month,add_weekで想定範囲外の値を選択できるようにする:false->safemode
       weekLabels : [
         {value:'Sun',color:'green'},
         {value:'Mon',color:'rgba(0,0,0,.5)'},
@@ -79,9 +99,8 @@ export default {
   },
   computed: {},
   methods: {
-    passInfo(val) {
-      console.log('passInfo',val);
-      this.monthInfo = val ;
+    setCalendar(cal, index) {
+      this['calendar'+index] = cal ;
     },
     passDay(val) {
       const index = this.checked.indexOf(val);

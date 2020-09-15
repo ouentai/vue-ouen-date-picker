@@ -66,6 +66,7 @@
 import {
   BaseCalendar ,
   DatePicker ,
+  // Calendarable ,
 } from './index';
 
 export default {

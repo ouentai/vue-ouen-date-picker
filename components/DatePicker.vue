@@ -19,6 +19,10 @@ export default {
   ],
   methods: {
     setDay(day) {
+      if (!this.checked) {
+        this.$emit("update:checked", [day]);
+        return ;
+      }
       const index = this.checked.indexOf(day) ;
       const arr = this.checked.slice() ;
       if (index===-1) {
